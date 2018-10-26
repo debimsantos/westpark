@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { getVenues } from './FourSquareAPI.js';
 
 class App extends Component {
 
@@ -15,7 +16,7 @@ class App extends Component {
 
   // Initialize map with Wespark lat lng
   initMap = () => {
-    var map = new window.google.maps.Map(document.getElementById('map'), {
+    let map = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 33.687533, lng: -117.816489 },
       zoom: 13
     })
