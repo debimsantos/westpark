@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <main>
         <div id='map'>
-        <Map {...this.props}/>
+        <Map/>
         </div>
       </main>
     );

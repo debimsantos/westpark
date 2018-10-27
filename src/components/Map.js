@@ -5,23 +5,24 @@ import {  withScriptjs,
           Marker
         } from "react-google-maps";
 
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={12}
-    defaultCenter={{ lat: 33.687533, lng: -117.816489 }}
-  >
-    {props.isMarkerShown && <Marker position={{ lat: 33.687533, lng: -117.816489 }} />}
+const MyMapComponent = withScriptjs(
+  withGoogleMap(props => (
+    <GoogleMap defaultZoom={12} defaultCenter={{ lat: 33.689826, lng: -117.806625 }}>
+      {props.isMarkerShown && (
+        <Marker position={{ lat: 33.689826, lng: -117.806625 }} />
+      )}
   </GoogleMap>
-))
+  ))
+);
 
 class Map extends Component {
   render() {
     return (
-      < MyMapComponent
+      <MyMapComponent
         isMarkerShown
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCtbzZIfTIawx8Cdnrf0HxTJsQZ9767k-I"
         loadingElement={< div style={{ height: `100%` }} />}
-        containerElement={< div style={{ height: `400px` }} />}
+        containerElement={< div style={{ height: `400vh` }} />}
         mapElement={< div style={{ height: `100%` }} />}
       />
     );
