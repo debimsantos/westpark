@@ -44,9 +44,10 @@ class Helper {
       urlPrams
     )}`,
       requestData
-    ).then(res => res.json()).catch(() => alert('Oops! looks like something went wrong finding locations'))
+    ).then(res => res.json()).catch(() => alert('Sorry. Unable to find trails in the area.'))
   }
 }
+
 export default class SquareAPI {
   // Get venues
   static search(urlPrams) {

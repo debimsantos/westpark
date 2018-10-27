@@ -7,10 +7,17 @@ import {  withScriptjs,
 
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
-    <GoogleMap defaultZoom={12} defaultCenter={{ lat: 33.689826, lng: -117.806625 }}>
-      {props.isMarkerShown && (
-        <Marker position={{ lat: 33.689826, lng: -117.806625 }} />
-      )}
+    <GoogleMap
+      defaultZoom={12}
+      zoom={props.zoom}
+      defaultCenter={{ lat: 33.689826, lng: -117.806625 }}
+    >
+      {props.markers &&
+        props.markers
+          .filter(marker => marker.isVisible)
+          .map((marker, id) => (
+        <Marker key={id} position={{ lat: marker.lat, lng: marker.lng }} />
+        ))}
   </GoogleMap>
   ))
 );
@@ -19,7 +26,7 @@ class Map extends Component {
   render() {
     return (
       <MyMapComponent
-        isMarkerShown
+        {...this.props}
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCtbzZIfTIawx8Cdnrf0HxTJsQZ9767k-I"
         loadingElement={< div style={{ height: `100%` }} />}
         containerElement={< div style={{ height: `400vh` }} />}
@@ -30,4 +37,3 @@ class Map extends Component {
 }
 
 export default Map;
-
