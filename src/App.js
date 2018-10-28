@@ -12,7 +12,10 @@ class App extends Component {
       venues: [],
       markers: [],
       center: [],
-      zoom: 12
+      zoom: 12,
+      updateSuperState: obj => {
+        this.setState(obj);
+      }
     };
   }
 
@@ -36,13 +39,19 @@ class App extends Component {
       this.setState({ venues: Object.assign(this.state.venues, newVenue) });
       // console.log(newVenue); uncomment to see location being clicked
     });
-  }
+  };
+
+  handleTrailItemClick = venue => {
+    const marker = this.state.markers.find(marker => marker.id === venue.id);
+    this.handleMarkerClick(marker);
+  };
 
     componentDidMount() {
       SquareAPI.search({
         ll: "33.689826,-117.806625",
         query: "trail",
-        radius: 8000
+        radius: 8000,
+        limit: 10
       }).then(results => {
         const {venues} = results.response;
         //const {center} = results.response.geocode.feature.geometry;
@@ -63,29 +72,34 @@ class App extends Component {
   render() {
     return (
 
-      <div className='App'>
-        <header>
-          <div className='header'>WESTPARK TRAILS</div>
-        </header>
-        <main>
+      <div className='App' id='App'>
+        <Sidebar
+          pageWrapId={"page-wrap"}
+          outerContainerId={"App"}
+          {...this.state}
+          handleTrailItemClick={this.handleTrailItemClick}
+        />
 
-          <Sidebar
-            pageWrapId={"page-wrap"}
-            outerContainerId={"App"}
-            {...this.state}
-          />
+        <div id="page-wrap">
+          <header className='header'>
+            <nav>
+              <h1 className='App-title'>WestPark Trails</h1>
+            </nav>
+          </header>
 
-          <Map {...this.state}
-            handleMarkerClick={this.handleMarkerClick}
-          />
-        </main>
+          <main className='main-content'>
+            <Map {...this.state}
+              handleMarkerClick={this.handleMarkerClick}
+            />
+          </main>
+        </div>
 
-      <footer className='footer'>
-        <p>WestPark Trails</p>
-        <p>Google Maps | FourSquare</p>
-        <p>Developer: <a href="mailto:debimortola@gmail.com">
-          Debi Mortola-Santos</a></p>
-      </footer>
+        <footer className='footer'>
+          <p>WestPark Trails</p>
+          <p>Google Maps | FourSquare</p>
+          <p>Developer: <a href="mailto:debimortola@gmail.com">
+            Debi Mortola</a></p>
+        </footer>
 
       </div>
 
