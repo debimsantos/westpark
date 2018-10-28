@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import SquareAPI from './FourSquareAPI.js';
 import Map from './components/Map.js';
+import Sidebar from './components/Sidebar.js';
 
 
 class App extends Component {
@@ -61,13 +62,33 @@ class App extends Component {
 
   render() {
     return (
-      <main>
-        <div className='App'>
-        <Map {...this.state}
-          handleMarkerClick={this.handleMarkerClick}
-        />
-        </div>
-      </main>
+
+      <div className='App'>
+        <header>
+          <div className='header'>WESTPARK TRAILS</div>
+        </header>
+        <main>
+
+          <Sidebar
+            pageWrapId={"page-wrap"}
+            outerContainerId={"App"}
+            {...this.state}
+          />
+
+          <Map {...this.state}
+            handleMarkerClick={this.handleMarkerClick}
+          />
+        </main>
+
+      <footer className='footer'>
+        <p>WestPark Trails</p>
+        <p>Google Maps | FourSquare</p>
+        <p>Developer: <a href="mailto:debimortola@gmail.com">
+          Debi Mortola-Santos</a></p>
+      </footer>
+
+      </div>
+
     );
   }
 }
