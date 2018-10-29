@@ -27,6 +27,7 @@ class App extends Component {
     this.setState({ markers: Object.assign(this.state.markers, markers) });
   };
 
+  // opens infowindow for marker/venue
   handleMarkerClick = marker => {
     this.closeAllMarkers();
     marker.isOpen = true;
@@ -34,6 +35,7 @@ class App extends Component {
 
     const venue = this.state.venues.find(venue => venue.id === marker.id);
 
+    // fetch venue details from FourSquare API
     SquareAPI.getVenueDetails(marker.id).then(res => {
       const newVenue = Object.assign(venue, res.response.venue);
       this.setState({ venues: Object.assign(this.state.venues, newVenue) });
@@ -41,20 +43,24 @@ class App extends Component {
     });
   };
 
+  // on sidebar when a venue is clicked, marker for that venue pops
   handleTrailItemClick = venue => {
     const marker = this.state.markers.find(marker => marker.id === venue.id);
     this.handleMarkerClick(marker);
   };
 
+    // search venues from FourSquare within Westpark area
     componentDidMount() {
       SquareAPI.search({
-        ll: "33.689826,-117.806625",
-        query: "trail",
+        ll: '33.689826,-117.806625',
+        query: 'trail',
         radius: 8000,
         limit: 10
       }).then(results => {
+        // assign results to venues object
         const {venues} = results.response;
         //const {center} = results.response.geocode.feature.geometry;
+        // generate marker for each venue
         const markers = venues.map(venue => {
           return {
             lat: venue.location.lat,
@@ -73,14 +79,15 @@ class App extends Component {
     return (
 
       <div className='App' id='App'>
+
         <Sidebar
-          pageWrapId={"page-wrap"}
-          outerContainerId={"App"}
+          pageWrapId={'page-wrap'}
+          outerContainerId={'App'}
           {...this.state}
           handleTrailItemClick={this.handleTrailItemClick}
         />
 
-        <div id="page-wrap">
+        <div id='page-wrap'>
           <header className='header'>
             <nav>
               <h1 className='App-title'>WestPark Trails</h1>
@@ -97,7 +104,7 @@ class App extends Component {
         <footer className='footer'>
           <p>WestPark Trails</p>
           <p>Google Maps | FourSquare</p>
-          <p>Developer: <a href="mailto:debimortola@gmail.com">
+          <p>Developer: <a href='mailto:debimortola@gmail.com'>
             Debi Mortola</a></p>
         </footer>
 

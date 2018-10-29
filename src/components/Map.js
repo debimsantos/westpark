@@ -4,19 +4,23 @@ import {  withScriptjs,
           GoogleMap,
           Marker,
           InfoWindow
-        } from "react-google-maps";
+        } from 'react-google-maps';
 
+/*
+* Resource: https://tomchentw.github.io/react-google-maps/
+*/
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       defaultZoom={12}
-      zoom={props.zoom}
+      //zoom={props.zoom}
       defaultCenter={{ lat: 33.689826, lng: -117.806625 }}
     >
       {props.markers &&
         props.markers
           .filter(marker => marker.isVisible)
           .map((marker, id) => {
+          // Generate markers on the venues from FourSquare
           const venueInfo = props.venues.find(venue => venue.id === marker.id);
           return (
             <Marker
@@ -26,10 +30,12 @@ const MyMapComponent = withScriptjs(
             >
               {marker.isOpen &&
                 venueInfo.bestPhoto && (
+                // Pop-up display for venue name, image and address
                 <InfoWindow>
                   <React.Fragment>
-                    <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={"Trail"}/>
+                    <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={'Trail'}/>
                     <p>{venueInfo.name}</p>
+                    <p>{venueInfo.location.address}</p>
                   </React.Fragment>
                 </InfoWindow>
               )}

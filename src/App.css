@@ -39,15 +39,11 @@ body {
 
 #App {
   font-family: sans-serif;
-
-  /* Give app full page to work with */
   height: 100vh;
 }
 
 #page-wrap {
   text-align: center;
-
-  /* Prevent sidebar from showing a scrollbar on page */
   overflow: auto;
 }
 
@@ -127,4 +123,3 @@ body {
   border: none;
   outline: none;
 }
-
