@@ -9,6 +9,9 @@ import {  withScriptjs,
 /*
 * Resource: https://tomchentw.github.io/react-google-maps/
 */
+
+//const google = window.google;
+
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
@@ -19,7 +22,7 @@ const MyMapComponent = withScriptjs(
       {props.markers &&
         props.markers
           .filter(marker => marker.isVisible)
-          .map((marker, id) => {
+          .map((marker, id, arr) => {
           // Generate markers on the venues from FourSquare
           const venueInfo = props.venues.find(venue => venue.id === marker.id);
           return (
@@ -27,6 +30,7 @@ const MyMapComponent = withScriptjs(
               key={id}
               position={{ lat: marker.lat, lng: marker.lng }}
               onClick={() => props.handleMarkerClick(marker)}
+              animation={arr.length === 1 ? window.google.maps.Animation.BOUNCE : window.google.maps.Animation.DROP}
             >
               {marker.isOpen &&
                 venueInfo.bestPhoto && (
