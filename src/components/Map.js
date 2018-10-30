@@ -14,13 +14,22 @@ const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       defaultZoom={12}
-      //zoom={props.zoom}
+      zoom={props.zoom}
       defaultCenter={{ lat:33.684566, lng:-117.826508 }}
+
+      //disabling default google map options
+      options={{
+        scrollwheel: false,
+        mapTypeControl: false,
+        fullscreenControl: false,
+        streetViewControl: false,
+      }}
       >
       {props.markers &&
         props.markers
           .filter(marker => marker.isVisible)
           .map((marker, id, arr) => {
+
           // Generate markers on the venues from FourSquare
           const venueInfo = props.venues.find(venue => venue.id === marker.id);
           return (
@@ -32,12 +41,13 @@ const MyMapComponent = withScriptjs(
             >
               {marker.isOpen &&
                 venueInfo.bestPhoto && (
+
                 // Pop-up display for venue name, image and address
                 <InfoWindow>
                   <React.Fragment>
                     <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={'Trail'}/>
-                    <h2 className='venue-name'>{venueInfo.name}</h2>
-                    <h3 className='address'>{venueInfo.location.address}</h3>
+                    <p className='venue-name'>{venueInfo.name}</p>
+                    <p className='address'>{venueInfo.location.address}</p>
                   </React.Fragment>
                 </InfoWindow>
               )}

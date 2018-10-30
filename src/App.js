@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import SquareAPI from './FourSquareAPI.js';
+import FourSquareAPI from './FourSquareAPI.js';
 import Map from './components/Map.js';
 import Sidebar from './components/Sidebar.js';
 
@@ -19,7 +19,7 @@ class App extends Component {
     };
   }
 
-  closeAllMarkers = () => {
+  closeMarkers = () => {
     const markers = this.state.markers.map(marker => {
       marker.isOpen = false;
       return marker;
@@ -29,14 +29,14 @@ class App extends Component {
 
   // opens infowindow for marker/venue
   handleMarkerClick = marker => {
-    this.closeAllMarkers();
+    this.closeMarkers();
     marker.isOpen = true;
     this.setState({ markers: Object.assign(this.state.markers, marker) });
 
     const venue = this.state.venues.find(venue => venue.id === marker.id);
 
     // fetch venue details from FourSquare API
-    SquareAPI.getVenueDetails(marker.id).then(res => {
+    FourSquareAPI.getVenueDetails(marker.id).then(res => {
       const newVenue = Object.assign(venue, res.response.venue);
       this.setState({ venues: Object.assign(this.state.venues, newVenue) });
       // console.log(newVenue); uncomment to see location being clicked
@@ -51,7 +51,7 @@ class App extends Component {
 
     // search venues from FourSquare within Westpark Irvine area
     componentDidMount() {
-      SquareAPI.search({
+      FourSquareAPI.search({
         ll: '33.684566,-117.826508',
         query: 'trail',
         radius: 8000,
@@ -73,7 +73,7 @@ class App extends Component {
         this.setState({ venues, markers });
         console.log(results);
       }).catch(err => {
-        console.log("SquareAPI request failed.")
+        console.log("FourSquare API request failed")
       });
     }
 
