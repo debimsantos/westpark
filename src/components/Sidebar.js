@@ -41,7 +41,7 @@ constructor() {
 
   render() {
     return (
-      <Menu right isOpen={true} >
+      <Menu right isOpen={true} noOverlay>
         <div className='search-venue-wrapper'>
           <div className='search-venue-input-wrapper'>
             <input

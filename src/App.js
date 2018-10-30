@@ -49,17 +49,17 @@ class App extends Component {
     this.handleMarkerClick(marker);
   };
 
-    // search venues from FourSquare within Westpark area
+    // search venues from FourSquare within Westpark Irvine area
     componentDidMount() {
       SquareAPI.search({
-        ll: '33.689826,-117.806625',
+        ll: '33.684566,-117.826508',
         query: 'trail',
         radius: 8000,
         limit: 10
       }).then(results => {
         // assign results to venues object
         const {venues} = results.response;
-        //const {center} = results.response.geocode.feature.geometry;
+
         // generate marker for each venue
         const markers = venues.map(venue => {
           return {
@@ -72,6 +72,8 @@ class App extends Component {
         });
         this.setState({ venues, markers });
         console.log(results);
+      }).catch(err => {
+        console.log("SquareAPI request failed.")
       });
     }
 

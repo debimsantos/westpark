@@ -4,6 +4,15 @@ html, body {
   padding: 0;
 }
 
+a {
+	color: orange;
+	text-decoration: none;
+}
+a:hover, a:focus {
+	color: #3397db;
+	text-decoration: none;
+}
+
 header {
   background-color: #282c34;
   min-height: 5vh;
@@ -30,6 +39,14 @@ h1 {
 
 #map {
   height: 100vh;
+}
+
+.venue-name {
+  font-size: 15px;
+}
+
+.address {
+  font-size: 10px;
 }
 
 footer {
@@ -89,6 +106,8 @@ li.trailList {
   color: white;
 }
 
+/* Modified from react-burger-menu https://github.com/negomi/react-burger-menu */
+
 #page-wrap {
   text-align: center;
   overflow: auto;
@@ -98,8 +117,6 @@ li.trailList {
 .bm-item:hover {
   color: white;
 }
-
-/* The rest copied directly from react-burger-menu docs */
 
 /* Position and sizing of burger button */
 .bm-burger-button {
@@ -135,8 +152,6 @@ li.trailList {
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }
-
-
 
 /* Styling of overlay */
 .bm-overlay {
