@@ -41,21 +41,24 @@ constructor() {
 
   render() {
     return (
-      <Menu>
+      <Menu right isOpen={true} >
         <div className='search-venue-wrapper'>
-          <div className="search-venue-input-wrapper">
+          <div className='search-venue-input-wrapper'>
             <input
-              type={"search"}
-              id={"search"}
-              placeholder={"Filter Trails"}
+              type={'search'}
+              id={'search'}
+              placeholder={'Filter Trails'}
               value={this.state.query}
               onChange={this.reviseQuery}
-              aria-label="filter"
+              aria-label='filter'
             />
             <Trails {...this.props}
               venues={this.filterTheVenues()}
               handleTrailItemClick={this.props.handleTrailItemClick}
             />
+            <div className='attribution'>
+              <h3>Trail information provided by FourSquare</h3>
+            </div>
           </div>
         </div>
       </Menu>

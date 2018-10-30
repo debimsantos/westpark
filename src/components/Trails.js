@@ -5,14 +5,14 @@ import TrailItem from './TrailItem.js'
 class Trails extends Component {
   render() {
     return (
-      <ol className='trailList'>
+      <ul className='trailList' tabindex='3'>
         {this.props.venues &&
           this.props.venues.map((venue, id) => (
             <TrailItem key={id} {...venue}
             handleTrailItemClick={this.props.handleTrailItemClick}
             />
           ))}
-      </ol>
+      </ul>
     );
   }
 }
