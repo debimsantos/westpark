@@ -17,7 +17,7 @@ const MyMapComponent = withScriptjs(
       zoom={props.zoom}
       defaultCenter={{ lat:33.684566, lng:-117.826508 }}
 
-      //disabling default google map options
+      // disabling default google map options
       options={{
         scrollwheel: false,
         mapTypeControl: false,
@@ -65,8 +65,8 @@ class Map extends Component {
         {...this.props}
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCtbzZIfTIawx8Cdnrf0HxTJsQZ9767k-I"
         loadingElement={< div style={{ height: `100vh` }} />}
-        containerElement={< div style={{ height: `100vh` }} />}
-        mapElement={< div style={{ height: `100vh` }} />}
+        containerElement={< div style={{ height: `85vh` }} />}
+        mapElement={< div style={{ height: `85vh` }} />}
         role='application'
       />
     );
