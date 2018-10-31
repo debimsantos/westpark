@@ -13,6 +13,7 @@ class App extends Component {
       markers: [],
       center: [],
       zoom: 12,
+      hasError: false,
       updateSuperState: obj => {
         this.setState(obj);
       }
@@ -35,13 +36,15 @@ class App extends Component {
 
     const venue = this.state.venues.find(venue => venue.id === marker.id);
 
-    // fetch venue details from FourSquare API
+    // fetch venue details from FourSquare API to populate infowindow
     FourSquareAPI.getVenueDetails(marker.id).then(res => {
       const newVenue = Object.assign(venue, res.response.venue);
       this.setState({ venues: Object.assign(this.state.venues, newVenue) });
       // console.log(newVenue); uncomment to see location being clicked
+    }).catch(error => {
+      alert('Problems retrieving information from FourSquare. Try again later');
     });
-  };
+  }
 
   // on sidebar when a venue is clicked, marker for that venue pops
   handleTrailItemClick = venue => {
@@ -73,11 +76,19 @@ class App extends Component {
         this.setState({ venues, markers });
         console.log(results);
       }).catch(err => {
-        console.log("FourSquare API request failed")
+        window.alert('Problems retrieving information from FourSquare. Try again later');
+        console.log('FourSquare API request failed', err)
       });
     }
 
+    componentDidCatch(error) {
+      this.setState({ hasError: true })
+    }
+
   render() {
+    if (this.state.hasError) {
+      return <p className='error-message'>There is a problem processing your request</p>
+    }
     return (
 
       <div className='App' id='App'>

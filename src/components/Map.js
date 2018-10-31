@@ -13,7 +13,7 @@ import {  withScriptjs,
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
-      defaultZoom={12}
+      defaultZoom={13}
       zoom={props.zoom}
       defaultCenter={{ lat:33.684566, lng:-117.826508 }}
 
@@ -45,9 +45,14 @@ const MyMapComponent = withScriptjs(
                 // Pop-up display for venue name, image and address
                 <InfoWindow>
                   <React.Fragment>
-                    <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={'Trail'}/>
-                    <p className='venue-name'>{venueInfo.name}</p>
-                    <p className='address'>{venueInfo.location.address}</p>
+                    <div className='infowindow'>
+                      <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={'Trail'}/>
+                      <p className='venue-name'>{venueInfo.name}</p>
+                      <p className='address'>
+                        {venueInfo.location.formattedAddress[0]}
+                        {venueInfo.location.formattedAddress[1]}
+                      </p>
+                    </div>
                   </React.Fragment>
                 </InfoWindow>
               )}
@@ -59,14 +64,33 @@ const MyMapComponent = withScriptjs(
 );
 
 class Map extends Component {
+  state = {
+    hasError: false
+  }
+
+  // Listening for authentication errors
+  gm_authFailure() {
+    window.alert('Problems loading google maps')
+  }
+
+  componentDidCatch(error, info) {
+    this.setState({
+      hasError: true
+    });
+  }
+
+  componentDidMount() {
+    window.gm_authFailure = this.gm_authFailure;
+  }
+
   render() {
     return (
       <MyMapComponent
         {...this.props}
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCtbzZIfTIawx8Cdnrf0HxTJsQZ9767k-I"
-        loadingElement={< div style={{ height: `100vh` }} />}
-        containerElement={< div style={{ height: `85vh` }} />}
-        mapElement={< div style={{ height: `85vh` }} />}
+        loadingElement={< div style={{ height: `100%` }} />}
+        containerElement={< div style={{ height: `calc(100vh - calc(50px + 5vmin))` }} />}
+        mapElement={< div style={{ height: `100%` }} />}
         role='application'
       />
     );
