@@ -1,4 +1,4 @@
-## Neighborhood Map Project
+# Neighborhood Map Project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -14,10 +14,10 @@ To run the application
 
 ## Dependencies
 
-1. [FourSquare API]https://foursquare.com/developers/  - for the venues and trail information
-2. [Google Map API]https://developers.google.com/maps/ - for the map
-3. [react-google-maps]https://tomchentw.github.io/react-google-maps/#installation
-4. [react-burger-menu]https://github.com/negomi/react-burger-menu
+1. [FourSquare API](https://foursquare.com/developers/)  - for the venues and trail information
+2. [Google Map API](https://developers.google.com/maps/) - for the map
+3. [react-google-maps](https://tomchentw.github.io/react-google-maps/#installation) - react wrapper for google map
+4. [react-burger-menu](https://github.com/negomi/react-burger-menu) - sidebar navigation
 
 ## Technology
 * React
