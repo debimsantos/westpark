@@ -12,6 +12,13 @@ To run the application
 3. Run `npm start` to start the server
 4. The app will open on your browser on the following address: http://localhost:3000/
 
+## Production and ServiceWorker
+
+To create a production build, use `npm run build`.
+
+The ServiceWorker is ready and will kick-in once you deploy your build to prod.
+
+
 ## Dependencies
 
 1. [FourSquare API](https://foursquare.com/developers/)  - for the venues and trail information
