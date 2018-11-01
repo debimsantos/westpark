@@ -31,26 +31,27 @@ const MyMapComponent = withScriptjs(
           .map((marker, id, arr) => {
 
           // Generate markers on the venues from FourSquare
-          const venueInfo = props.venues.find(venue => venue.id === marker.id);
+          const trailInfo = props.venues.find(venue => venue.id === marker.id);
           return (
             <Marker
               key={id}
               position={{ lat: marker.lat, lng: marker.lng }}
               onClick={() => props.handleMarkerClick(marker)}
-              animation={arr.length === 1 ? window.google.maps.Animation.BOUNCE : window.google.maps.Animation.DROP}
+              animation={marker.id === props.venues.id ? window.google.maps.Animation.BOUNCE :
+                window.google.maps.Animation.DROP}
             >
               {marker.isOpen &&
-                venueInfo.bestPhoto && (
+                trailInfo.bestPhoto && (
 
                 // Pop-up display for venue name, image and address
                 <InfoWindow>
                   <React.Fragment>
                     <div className='infowindow'>
-                      <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={'Trail'}/>
-                      <p className='venue-name'>{venueInfo.name}</p>
+                      <img src={`${trailInfo.bestPhoto.prefix}200x200${trailInfo.bestPhoto.suffix}`} alt={'Trail'}/>
+                      <p className='venue-name'>{trailInfo.name}</p>
                       <p className='address'>
-                        {venueInfo.location.formattedAddress[0]}
-                        {venueInfo.location.formattedAddress[1]}
+                        {trailInfo.location.formattedAddress[0]} < br/>
+                        {trailInfo.location.formattedAddress[1]}
                       </p>
                     </div>
                   </React.Fragment>

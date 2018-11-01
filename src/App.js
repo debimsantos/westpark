@@ -12,7 +12,7 @@ class App extends Component {
       venues: [],
       markers: [],
       center: [],
-      zoom: 12,
+      zoom: 13,
       hasError: false,
       updateSuperState: obj => {
         this.setState(obj);
@@ -20,6 +20,7 @@ class App extends Component {
     };
   }
 
+  // close other markers when a new one is clicked
   closeMarkers = () => {
     const markers = this.state.markers.map(marker => {
       marker.isOpen = false;
@@ -28,7 +29,7 @@ class App extends Component {
     this.setState({ markers: Object.assign(this.state.markers, markers) });
   };
 
-  // opens infowindow for marker/venue
+  // opens infowindow when marker/venue is clicked
   handleMarkerClick = marker => {
     this.closeMarkers();
     marker.isOpen = true;
@@ -43,6 +44,7 @@ class App extends Component {
       // console.log(newVenue); uncomment to see location being clicked
     }).catch(error => {
       alert('Problems retrieving information from FourSquare. Try again later');
+      console.log('Error:', error)
     });
   }
 
@@ -75,8 +77,9 @@ class App extends Component {
         });
         this.setState({ venues, markers });
         console.log(results);
+        // error handling
       }).catch(err => {
-        window.alert('Problems retrieving information from FourSquare. Try again later');
+        window.alert('Problems retrieving information from FourSquare. Try again later.');
         console.log('FourSquare API request failed', err)
       });
     }

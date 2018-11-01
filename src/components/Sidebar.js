@@ -11,25 +11,26 @@ constructor() {
     venues: []
   };
 }
-
-  filterTheVenues = () => {
+  // Filter venue list
+  filterTrails = () => {
     if (this.state.query.trim() !== "") {
-      let restaurants = this.props.venues.filter(venue => venue.name.toLowerCase()
+      let trails = this.props.venues.filter(venue => venue.name.toLowerCase()
       .includes(this.state.query.toLowerCase()))
-      return restaurants
+      return trails
     }
     return this.props.venues
   }
 
-  reviseQuery = (event) => {
+  updateQuery = (event) => {
     this.setState({
       query: event.target.value
     })
 
+    // Match markers to filter result
     let markers = this.props.venues.map(venue => {
-      let doesMatch = venue.name.toLowerCase().includes(event.target.value.toLowerCase())
+      let isMatch = venue.name.toLowerCase().includes(event.target.value.toLowerCase())
       let marker = this.props.markers.find(element => element.id === venue.id);
-      if (doesMatch) {
+      if (isMatch) {
         marker.isVisible = true;
       } else {
         marker.isVisible = false;
@@ -41,6 +42,7 @@ constructor() {
 
   render() {
     return (
+      // set sidebar to open on the right by default
       <Menu right isOpen={true} noOverlay>
         <div className='search-venue-wrapper'>
           <div className='search-venue-input-wrapper'>
@@ -49,11 +51,11 @@ constructor() {
               id={'search'}
               placeholder={'Filter Trails'}
               value={this.state.query}
-              onChange={this.reviseQuery}
+              onChange={this.updateQuery}
               aria-label='filter'
             />
             <Trails {...this.props}
-              venues={this.filterTheVenues()}
+              venues={this.filterTrails()}
               handleTrailItemClick={this.props.handleTrailItemClick}
             />
             <div className='attribution'>
