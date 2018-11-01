@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       venues: [],
       markers: [],
-      center: [],
+      //center: [],
       zoom: 13,
       hasError: false,
       updateSuperState: obj => {
@@ -55,8 +55,8 @@ class App extends Component {
   };
 
     // search venues from FourSquare within Westpark Irvine area
-    componentDidMount() {
-      FourSquareAPI.search({
+    async componentDidMount() {
+      await FourSquareAPI.search({
         ll: '33.684566,-117.826508',
         query: 'trail',
         radius: 8000,
@@ -74,9 +74,10 @@ class App extends Component {
             isVisible: true,
             id: venue.id
           };
-        });
+        })
         this.setState({ venues, markers });
         console.log(results);
+
         // error handling
       }).catch(err => {
         window.alert('Problems retrieving information from FourSquare. Try again later.');
@@ -101,6 +102,7 @@ class App extends Component {
           outerContainerId={'App'}
           {...this.state}
           handleTrailItemClick={this.handleTrailItemClick}
+          tabIndex={1}
         />
 
         <div id='page-wrap'>
@@ -113,6 +115,7 @@ class App extends Component {
           <main className='main-content'>
             <Map {...this.state}
               handleMarkerClick={this.handleMarkerClick}
+              tabIndex={2}
             />
           </main>
         </div>

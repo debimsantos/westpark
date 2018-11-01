@@ -15,7 +15,7 @@ const MyMapComponent = withScriptjs(
     <GoogleMap
       defaultZoom={13}
       zoom={props.zoom}
-      defaultCenter={{ lat:33.684566, lng:-117.826508 }}
+      defaultCenter={{ lat:33.6782, lng:-117.8018 }}
 
       // disabling default google map options
       options={{
@@ -74,10 +74,11 @@ class Map extends Component {
     window.alert('Problems loading google maps')
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error) {
+    console.log(error);
     this.setState({
       hasError: true
-    });
+    })
   }
 
   componentDidMount() {
@@ -90,7 +91,7 @@ class Map extends Component {
         {...this.props}
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCtbzZIfTIawx8Cdnrf0HxTJsQZ9767k-I"
         loadingElement={< div style={{ height: `100%` }} />}
-        containerElement={< div style={{ height: `calc(100vh - calc(50px + 5vmin))` }} />}
+        containerElement={< div style={{ height: `100vh` }} />}
         mapElement={< div style={{ height: `100%` }} />}
         role='application'
       />
