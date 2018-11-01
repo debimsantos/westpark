@@ -7,7 +7,7 @@ The app features a map of the Westpark, Irvine area with trails showing as marke
 ## Installation
 
 To run the application
-1. Download or clone the files from
+1. Download or clone the files from https://github.com/debimsantos/westpark.git
 2. Install project dependencies by running `npm install` on the command line
 3. Run `npm start` to start the server
 4. The app will open on your browser on the following address: http://localhost:3000/
