@@ -12,8 +12,11 @@ class Helper {
   static auth() {
     // auth credentials
     const keys = {
-      client_id: "YDNASL5NXRDIB4HXSAO4DRK3ZMR3OHMFN5DGGMO1QL2MZGGK",
-      client_secret: "MG2I0Q0EHORAJO0RWWX53GHXTPVX4GQV0ACEYLQ0JRNDVSRI",
+      client_id: "21HG0KPME5O51YIPHHUPWGEB4FVWU3FBGYHRKBTDEWJ2TLU1",
+      client_secret: "X4WT1H0WCNCYBFVXZZIRE30QF3KP2F0BQGVU2I0VTFK02T3N",
+
+      //client_id: "YDNASL5NXRDIB4HXSAO4DRK3ZMR3OHMFN5DGGMO1QL2MZGGK",
+      //client_secret: "MG2I0Q0EHORAJO0RWWX53GHXTPVX4GQV0ACEYLQ0JRNDVSRI",
       v: "20181027"
     };
     return Object.keys(keys)
@@ -22,7 +25,7 @@ class Helper {
   }
   static urlBuilder(urlPrams) {
     if (!urlPrams) {
-      return ""
+      return "";
     }
     return Object.keys(urlPrams)
       .map(key => `${key}=${urlPrams[key]}`)
