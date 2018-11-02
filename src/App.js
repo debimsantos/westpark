@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       venues: [],
       markers: [],
-      //center: [],
+      center: [],
       zoom: 13,
       hasError: false,
       updateSuperState: obj => {
@@ -33,15 +33,19 @@ class App extends Component {
   handleMarkerClick = marker => {
     this.closeMarkers();
     marker.isOpen = true;
-    this.setState({ markers: Object.assign(this.state.markers, marker) });
-
+    this.setState({markers: Object.assign(this.state.markers, marker)});
     const venue = this.state.venues.find(venue => venue.id === marker.id);
-
     // fetch venue details from FourSquare API to populate infowindow
     FourSquareAPI.getVenueDetails(marker.id).then(res => {
       const newVenue = Object.assign(venue, res.response.venue);
-      this.setState({ venues: Object.assign(this.state.venues, newVenue) });
-      // console.log(newVenue); uncomment to see location being clicked
+      this.setState({
+        venues: Object.assign(this.state.venues, newVenue),
+        // center map and added a little nudge to the left
+        center: {
+          lat: newVenue.location.lat,
+          lng: (newVenue.location.lng + 0.02 )
+        }
+      });
     }).catch(error => {
       alert('Problems retrieving information from FourSquare. Try again later');
       console.log('Error:', error)
@@ -57,13 +61,15 @@ class App extends Component {
     // search venues from FourSquare within Westpark Irvine area
     async componentDidMount() {
       await FourSquareAPI.search({
-        ll: '33.684566,-117.826508',
+        //ll: '33.684566,-117.826508',
+        near: 'Irvine,CA',
         query: 'trail',
         radius: 8000,
-        limit: 10
+        limit: 12
       }).then(results => {
         // assign results to venues object
-        const {venues} = results.response;
+        const { venues } = results.response;
+        const { center } = results.response.geocode.feature.geometry;
 
         // generate marker for each venue
         const markers = venues.map(venue => {
@@ -75,12 +81,9 @@ class App extends Component {
             id: venue.id
           };
         })
-        this.setState({ venues, markers });
-        console.log(results);
-
-        // error handling
+        this.setState({ venues, center, markers });
       }).catch(err => {
-        window.alert('Problems retrieving information from FourSquare. Try again later.');
+        window.alert('Problems retrieving information from FourSquare.    Try again later.');
         console.log('FourSquare API request failed', err)
       });
     }
@@ -90,9 +93,11 @@ class App extends Component {
     }
 
   render() {
+
     if (this.state.hasError) {
       return <p className='error-message'>There is a problem processing your request</p>
     }
+
     return (
 
       <div className='App' id='App'>

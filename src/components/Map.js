@@ -13,9 +13,10 @@ import {  withScriptjs,
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
-      defaultZoom={13}
+      defaultZoom={10}
       zoom={props.zoom}
       defaultCenter={{ lat:33.6782, lng:-117.8018 }}
+      center={props.center}
 
       // disabling default google map options
       options={{
@@ -32,6 +33,7 @@ const MyMapComponent = withScriptjs(
 
           // Generate markers on the venues from FourSquare
           const trailInfo = props.venues.find(venue => venue.id === marker.id);
+
           return (
             <Marker
               key={id}
